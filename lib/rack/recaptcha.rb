@@ -22,8 +22,7 @@ module Rack
 
     def call(env)
       request = Request.new(env)
-      if request.params[CHALLENGE_FIELD] and
-        request.params[RESPONSE_FIELD] and (not @paths or @paths.include?(request.path))
+      if request.params[CHALLENGE_FIELD] and request.params[RESPONSE_FIELD] 
         value, msg = verify(request)
         env.merge!('recaptcha.valid' => value == 'true', 'recaptcha.msg' => msg)
       end
